@@ -111,8 +111,8 @@ classdef quatToEulerAnglesTest < matlab.unittest.TestCase
             % Test that angles are in proper ranges
             % Roll and Yaw: -pi to pi, Pitch: -pi/2 to pi/2
             
-            test_angles = [-pi, -pi/2, 0, pi/2, pi];
-            for angle = test_angles
+            testAngles = [-pi, -pi/2, 0, pi/2, pi];
+            for angle = testAngles
                 qw = cos(angle/2); qx = sin(angle/2); qy = 0; qz = 0;
                 [phi, theta, psi] = quatToEulerAngles(qx, qy, qz, qw);
                 

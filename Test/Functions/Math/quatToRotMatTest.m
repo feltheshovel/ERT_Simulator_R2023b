@@ -51,10 +51,10 @@ classdef quatToRotMatTest < matlab.unittest.TestCase
             q2 = q2/norm(q2); % normalize to 1
             % combine
             q = [q1,q2];
-            % get rotation matrix
+            % get rotation matrices
             C = quatToRotMat(q);
 
-            % declare expected Euler angles
+            % declare expected rotation matrices
             C1Exp = [-0.2593,-0.0741,0.9630;
                      0.5185 ,-0.8519,0.0741;
                      0.8148 ,0.5185 ,0.2593];
@@ -144,8 +144,8 @@ classdef quatToRotMatTest < matlab.unittest.TestCase
                 C = quatToRotMat(q);
                 
                 % Test orthogonality: C * C' = I
-                identity_test = C * C';
-                testCase.verifyEqual(identity_test, eye(3), 'AbsTol', 1e-10);
+                identityTest = C * C';
+                testCase.verifyEqual(identityTest, eye(3), 'AbsTol', 1e-10);
                 
                 % Test determinant = 1
                 detC = det(C);
@@ -159,21 +159,21 @@ classdef quatToRotMatTest < matlab.unittest.TestCase
             q = q / norm(q); % Normalize
             
             C = quatToRotMat(q);
-            q_inv = [-q(1:3); q(4)]; % Inverse quaternion
-            C_inv = quatToRotMat(q_inv);
+            qInv = [-q(1:3); q(4)]; % Inverse quaternion
+            CInv = quatToRotMat(qInv);
             
-            % C_inv should equal C'
-            testCase.verifyEqual(C_inv, C', 'AbsTol', 1e-10);
+            % CInv should equal C'
+            testCase.verifyEqual(CInv, C', 'AbsTol', 1e-10);
             
-            % C * C_inv should equal identity
-            product = C * C_inv;
+            % C * CInv should equal identity
+            product = C * CInv;
             testCase.verifyEqual(product, eye(3), 'AbsTol', 1e-10);
         end
         
         function testSmallAngleApproximation(testCase)
             % Test small angles approximate identity + skew-symmetric matrix
-            small_angle = 1e-3;
-            wx = small_angle; wy = 0; wz = 0;
+            smallAngle = 1e-3;
+            wx = smallAngle; wy = 0; wz = 0;
             
             % Small angle quaternion approximation
             q = [wx/2; wy/2; wz/2; 1];
@@ -182,9 +182,9 @@ classdef quatToRotMatTest < matlab.unittest.TestCase
             C = quatToRotMat(q);
             
             % For small angles, C ≈ I + skew([wx, wy, wz])
-            expected_approx = eye(3) + [0, -wz, wy; wz, 0, -wx; -wy, wx, 0];
+            expectedApprox = eye(3) + [0, -wz, wy; wz, 0, -wx; -wy, wx, 0];
             
-            testCase.verifyEqual(C, expected_approx, 'AbsTol', 1e-6);
+            testCase.verifyEqual(C, expectedApprox, 'AbsTol', 1e-6);
         end
         
         function testCompositionOfRotations(testCase)
@@ -202,33 +202,33 @@ classdef quatToRotMatTest < matlab.unittest.TestCase
             C2 = quatToRotMat(q2);
             
             % Combined rotation: q = q1 * q2
-            q1_vec = q1; q2_vec = q2;
-            q_combined = [q1_vec(4)*q2_vec(1:3) + q2_vec(4)*q1_vec(1:3) + cross(q1_vec(1:3), q2_vec(1:3));
-                         q1_vec(4)*q2_vec(4) - dot(q1_vec(1:3), q2_vec(1:3))];
-            q_combined = q_combined / norm(q_combined);
+            q1Vec = q1; q2Vec = q2;
+            qCombined = [q1Vec(4)*q2Vec(1:3) + q2Vec(4)*q1Vec(1:3) + cross(q1Vec(1:3), q2Vec(1:3));
+                         q1Vec(4)*q2Vec(4) - dot(q1Vec(1:3), q2Vec(1:3))];
+            qCombined = qCombined / norm(qCombined);
             
-            C_combined = quatToRotMat(q_combined);
-            C_expected = C1 * C2;
+            CCombined = quatToRotMat(qCombined);
+            CExpected = C1 * C2;
             
-            testCase.verifyEqual(C_combined, C_expected, 'AbsTol', 1e-10);
+            testCase.verifyEqual(CCombined, CExpected, 'AbsTol', 1e-10);
         end
         
         function testInputDimensions(testCase)
             % Test various input dimensions
             % Single quaternion
-            q_single = [0.5; 0.5; 0.5; 0.5];
-            C_single = quatToRotMat(q_single);
-            testCase.verifySize(C_single, [3, 3, 1]);
+            qSingle = [0.5; 0.5; 0.5; 0.5];
+            CSingle = quatToRotMat(qSingle);
+            testCase.verifySize(CSingle, [3, 3, 1]);
             
             % Multiple quaternions (4x2)
-            q_multi = [q_single, [0; 0; 0; 1]];
-            C_multi = quatToRotMat(q_multi);
-            testCase.verifySize(C_multi, [3, 3, 2]);
+            qMulti = [qSingle, [0; 0; 0; 1]];
+            CMulti = quatToRotMat(qMulti);
+            testCase.verifySize(CMulti, [3, 3, 2]);
             
             % Multiple quaternions (4x5)
-            q_multi5 = repmat([0; 0; 0; 1], 1, 5);
-            C_multi5 = quatToRotMat(q_multi5);
-            testCase.verifySize(C_multi5, [3, 3, 5]);
+            qMulti5 = repmat([0; 0; 0; 1], 1, 5);
+            CMulti5 = quatToRotMat(qMulti5);
+            testCase.verifySize(CMulti5, [3, 3, 5]);
         end
     end
 end
