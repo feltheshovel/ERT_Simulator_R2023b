@@ -1,5 +1,5 @@
-function C = rotmat(a, ax)
-%ROTMAT generates the rotation matrix in cartesian coordinates of angle a 
+function C = rotMat(a, ax)
+% rotMat generates the rotation matrix in cartesian coordinates of angle a 
 % around axes ax. 
 
 switch(ax)
@@ -16,6 +16,6 @@ switch(ax)
                 sin(a),cos(a),     0;
                       0,        0,  1];
     otherwise
-        error('Error: In ROTMAT, Axes number must be between 1 and 3.');
+        error('rotMat:axisNumber','Error: In ROTMAT, Axes number must be between 1 and 3.');
 end
 end

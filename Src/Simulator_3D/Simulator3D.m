@@ -134,8 +134,8 @@ classdef Simulator3D < handle
             % Coordinate systems
 
             % Rotation matrix from rocket coordinates to Earth coordinates
-            C = quat2rotmat(Q);
-            angle = rot2anglemat(C);
+            C = quatToRotMat(Q);
+            angle = rotToAngleMat(C);
 
             % Rocket principle frame vectors expressed in earth coordinates
             YA = C*[1,0,0]'; % Yaw axis
@@ -223,7 +223,7 @@ classdef Simulator3D < handle
 %             elseif(abs(alpha-pi)<1e-3)
 %                 RW = -RA;
 %             else
-%                 Cw = quat2rotmat([Vcross_norm*sin(alpha/2); cos(alpha/2)]);
+%                 Cw = quatToRotMat([Vcross_norm*sin(alpha/2); cos(alpha/2)]);
 %                 RW = C*Cw*[0;0;1];
 %             end
 
@@ -430,8 +430,8 @@ classdef Simulator3D < handle
             % Coordinate systems
 
             % Rotation matrix from rocket coordinates to Earth coordinates
-            C = quat2rotmat(Q);
-            angle = rot2anglemat(C);
+            C = quatToRotMat(Q);
+            angle = rotToAngleMat(C);
 
             % Rocket principle frame vectors expressed in earth coordinates
             YA = C*[1,0,0]'; % Yaw axis
@@ -513,7 +513,7 @@ classdef Simulator3D < handle
 %             elseif(abs(alpha-pi)<1e-3)
 %                 RW = -RA;
 %             else
-%                 Cw = quat2rotmat([Vcross_norm*sin(alpha/2); cos(alpha/2)]);
+%                 Cw = quatToRotMat([Vcross_norm*sin(alpha/2); cos(alpha/2)]);
 %                 RW = C*Cw*[0;0;1];
 %             end
 
@@ -653,15 +653,15 @@ classdef Simulator3D < handle
                 V = arg2;
                 
                 % Rail vector
-                C_rail = rotmat(obj.Environment.Rail_Azimuth, 3)*...
-                    rotmat(obj.Environment.Rail_Angle, 2)*...
-                    rotmat(obj.Environment.Rail_Azimuth, 3)';
+                C_rail = rotMat(obj.Environment.Rail_Azimuth, 3)*...
+                    rotMat(obj.Environment.Rail_Angle, 2)*...
+                    rotMat(obj.Environment.Rail_Azimuth, 3)';
                 RV = C_rail*[0;0;1];
 
                 % Initial Conditions
                 X0 = RV*obj.Environment.Rail_Length; % spatial position of cm
                 V0 = RV*V; % Initial velocity of cm
-                Q0 = rot2quat(C_rail'); % Initial attitude
+                Q0 = rotToQuat(C_rail'); % Initial attitude
                 W0 = [0;0;0]; % Initial angular rotation in rocket principle coordinates
                 S0 = [X0; V0; Q0; W0];
             elseif (nargin == 6)

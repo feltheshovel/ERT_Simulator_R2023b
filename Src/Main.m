@@ -141,8 +141,8 @@ end
 
 % PLOT 1 : 3D rocket trajectory
 
-C = quat2rotmat(S2(:, 7:10));
-angle = rot2anglemat(C);
+C = quatToRotMat(S2(:, 7:10));
+angle = rotToAngleMat(C);
 
 % plot rocket orientation
 figure('Name','3D Trajectory Representation'); hold on;

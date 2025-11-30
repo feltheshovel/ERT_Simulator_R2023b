@@ -1,5 +1,5 @@
-function C = quat2rotmat(q)
-% QUAT2ROTMAT computes the rotation matrix equivalent to quaternion q (4xn).
+function C = quatToRotMat(q)
+% quatToRotMat computes the rotation matrix equivalent to quaternion q (4xn).
 % q represents the attitude of the vehicle in earth's cartesian coordinate
 % system. The resulting matrix C (3x3xn) rotates the coordinate system proper 
 % to the vehicle into earth's coordinate system.
