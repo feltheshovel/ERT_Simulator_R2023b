@@ -40,7 +40,8 @@ classdef quatEvolveTest < matlab.unittest.TestCase
     % --- Existing Test Methods ---
     methods (Test)
         function testBasicCase(testCase)
-            % Test that zero angular velocity produces near-zero derivative
+            % Test that the function outputs the correct result
+            % for a random quaternion and angular velocity
             q = [1; 2; 0.3; 1.6];
             w = [1; 3; 5];
             qDot = quatEvolve(q, w);

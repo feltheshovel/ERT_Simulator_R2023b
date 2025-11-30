@@ -2,9 +2,11 @@
 % phi: roll
 % theta: pitch
 % psi: yaw
-% source of formula used:
+% Source of formula used:
 % https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles,
 % section "Quaternion to Euler angles (in 3-2-1 sequence) conversion
+
+% Only works with normalized quaternions
 
 function [phi, theta, psi] = quatToEulerAngles(qx, qy, qz, qw)
     phi = atan2(2.*(qw.*qx + qy.*qz), 1 - 2.*(qx.^2 + qy.^2));
