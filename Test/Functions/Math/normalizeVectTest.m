@@ -43,74 +43,74 @@ classdef normalizeVectTest < matlab.unittest.TestCase
         function testBasicNormalization(testCase)
             % Test a simple 2D vector
             v = [3, 4];
-            expected_v_unit = [0.6, 0.8];
-            v_unit = normalizeVect(v);
+            expectedUnitV = [0.6, 0.8];
+            unitV = normalizeVect(v);
             
             % Verify the result using a tolerance for floating-point comparison
-            testCase.verifyThat(v_unit, ...
-                matlab.unittest.constraints.IsEqualTo(expected_v_unit, ...
+            testCase.verifyThat(unitV, ...
+                matlab.unittest.constraints.IsEqualTo(expectedUnitV, ...
                 'Within', matlab.unittest.constraints.AbsoluteTolerance(1e-10)));
         end
         
         function testZeroVector(testCase)
             % Test the zero vector case
             v = [0, 0, 0];
-            expected_v_unit = [0, 0, 0];
-            v_unit = normalizeVect(v);
+            expectedUnitV = [0, 0, 0];
+            unitV = normalizeVect(v);
             
             % Verify the result (this should be exact)
-            testCase.verifyEqual(v_unit, expected_v_unit);
+            testCase.verifyEqual(unitV, expectedUnitV);
         end
         
         function testAlreadyUnitVector(testCase)
             % Test a vector that is already a unit vector
             v = [0, 1, 0];
-            expected_v_unit = [0, 1, 0];
-            v_unit = normalizeVect(v);
+            expectedUnitV = [0, 1, 0];
+            unitV = normalizeVect(v);
             
             % Verify the result is unchanged
-            testCase.verifyThat(v_unit, ...
-                matlab.unittest.constraints.IsEqualTo(expected_v_unit, ...
+            testCase.verifyThat(unitV, ...
+                matlab.unittest.constraints.IsEqualTo(expectedUnitV, ...
                 'Within', matlab.unittest.constraints.AbsoluteTolerance(1e-10)));
         end
         
         function testNegativeComponents(testCase)
             % Test a vector with negative components
             v = [-5, -12]; % norm is 13
-            expected_v_unit = [-5/13, -12/13];
-            v_unit = normalizeVect(v);
+            expectedUnitV = [-5/13, -12/13];
+            unitV = normalizeVect(v);
             
             % Verify the result
-            testCase.verifyThat(v_unit, ...
-                matlab.unittest.constraints.IsEqualTo(expected_v_unit, ...
+            testCase.verifyThat(unitV, ...
+                matlab.unittest.constraints.IsEqualTo(expectedUnitV, ...
                 'Within', matlab.unittest.constraints.AbsoluteTolerance(1e-10)));
         end
         
         function test3DVector(testCase)
             % Test a 3D vector
             v = [1, 2, 2]; % norm is 3
-            expected_v_unit = [1/3, 2/3, 2/3];
-            v_unit = normalizeVect(v);
+            expectedUnitV = [1/3, 2/3, 2/3];
+            unitV = normalizeVect(v);
             
             % Verify the result
-            testCase.verifyThat(v_unit, ...
-                matlab.unittest.constraints.IsEqualTo(expected_v_unit, ...
+            testCase.verifyThat(unitV, ...
+                matlab.unittest.constraints.IsEqualTo(expectedUnitV, ...
                 'Within', matlab.unittest.constraints.AbsoluteTolerance(1e-10)));
         end
         
         function testColumnVector(testCase)
             % Test a column vector to ensure orientation is preserved
             v = [3; 4];
-            expected_v_unit = [0.6; 0.8];
-            v_unit = normalizeVect(v);
+            expectedUnitV = [0.6; 0.8];
+            unitV = normalizeVect(v);
             
             % Verify the result
-            testCase.verifyThat(v_unit, ...
-                matlab.unittest.constraints.IsEqualTo(expected_v_unit, ...
+            testCase.verifyThat(unitV, ...
+                matlab.unittest.constraints.IsEqualTo(expectedUnitV, ...
                 'Within', matlab.unittest.constraints.AbsoluteTolerance(1e-10)));
             
             % Verify the size/orientation is the same as the input
-            testCase.verifySize(v_unit, size(v));
+            testCase.verifySize(unitV, size(v));
         end
         
     end
