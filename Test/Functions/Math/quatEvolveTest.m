@@ -64,6 +64,24 @@ classdef quatEvolveTest < matlab.unittest.TestCase
             expected = [0; 0; 0; -0.5];
             testCase.verifyEqual(qDot, expected, 'AbsTol', 1e-10);
         end
+
+        function testYAxisRotation(testCase)
+            % Test rotation about X-axis from identity quaternion
+            q = [1; 0; 0; 0];
+            w = [0; 1; 0];
+            qDot = quatEvolve(q, w);
+            expected = [0; 0; 0.5; 0];
+            testCase.verifyEqual(qDot, expected, 'AbsTol', 1e-10);
+        end
+
+        function testZAxisRotation(testCase)
+            % Test rotation about X-axis from identity quaternion
+            q = [1; 0; 0; 0];
+            w = [0; 0; 1];
+            qDot = quatEvolve(q, w);
+            expected = [0; -0.5; 0; 0];
+            testCase.verifyEqual(qDot, expected, 'AbsTol', 1e-10);
+        end
         
         function testQuaternionNormPreservation(testCase)
             % Test that the derivative maintains quaternion structure
