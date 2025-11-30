@@ -273,7 +273,7 @@ classdef Simulator3D < handle
             V_dot = 1/M*(F_tot);
 
             % Rotational dynamics
-            Q_dot = quat_evolve(Q, W);
+            Q_dot = quatEvolve(Q, W);
             
             %W_dot = pinv(I)*M_tot;
             %W_dot = mldivide(I,M_tot); % (TODO: Add inertia variation with time)
@@ -563,7 +563,7 @@ classdef Simulator3D < handle
             V_dot = 1/M*(F_tot);
 
             % Rotational dynamics
-            Q_dot = quat_evolve(Q, W);
+            Q_dot = quatEvolve(Q, W);
             %W_dot = mldivide(I,M_tot); % (TODO: Add inertia variation with time)
             W_dot = mldivide(I, M_tot - dIdt*angle');
 
