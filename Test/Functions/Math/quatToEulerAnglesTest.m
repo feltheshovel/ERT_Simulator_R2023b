@@ -41,7 +41,7 @@ classdef quatToEulerAnglesTest < matlab.unittest.TestCase
     methods (Test)
         function testBasicCase(testCase)
             % Test that the function outputs the correct result
-            % for a random quaternions
+            % for random quaternions
 
             % first quaternion
             q1 = [3;1;4;1];
