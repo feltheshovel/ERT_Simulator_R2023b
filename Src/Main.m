@@ -388,7 +388,7 @@ legend("ax", "ay", "az", fontsize=15)
 % Plot 10
 figure(Name="Euler angles")
 q = S2(:,7:10)';
-[phi, theta, psi] = quat_to_euler_angles(q(1,:), q(2,:), q(3,:), q(4,:));
+[phi, theta, psi] = quatToEulerAngles(q(1,:), q(2,:), q(3,:), q(4,:));
 hold on
 plot(T2, phi .* 180 ./ pi, LineWidth=2)
 plot(T2, theta .* 180 ./ pi, LineWidth=2)
