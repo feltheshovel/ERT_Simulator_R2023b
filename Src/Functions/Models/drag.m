@@ -17,6 +17,14 @@ function CD = drag(Rocket, alpha, Uinf, nu, a)
 % - Hassan Arif, Identification and Control of a High Power Rocket, EPFL
 % Semester Project Report, Professor Collin Jones, June 2017.
 
+% read this file with data used for drag calculation as a persistent
+% variable, since reading it every time step is inefficient
+% (defined in eq 3.3, p 19)
+persistent cp_sin_arr
+    if isempty(cp_sin_arr)
+        cp_sin_arr = readmatrix("data_Cp_conical_nose_sin.csv");
+    end
+
 % -------------------------------------------------------------------------
 % 0. Divergence 
 % -------------------------------------------------------------------------
@@ -253,9 +261,6 @@ end
         
         % heat capacity ratio
         gamma=1.4;
-        
-        % (defined in eq 3.3, p 19)
-        cp_sin_arr = load("data_Cp_conical_nose_sin.csv") ;
         
         % ---------------------------------------------------------------------
         % 3.1  Nose drag
