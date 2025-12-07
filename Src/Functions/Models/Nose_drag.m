@@ -1,4 +1,4 @@
-function CD = drag(Rocket, alpha, Uinf, nu, a)
+function CD = Nose_drag(Rocket, alpha, Uinf, nu, a)
 % DRAG - Rocket drag calculation function based on Mandell's book "Topics
 % on advanced model Rocketry" (unless otherwise specified). 
 % LIMITATIONS:
