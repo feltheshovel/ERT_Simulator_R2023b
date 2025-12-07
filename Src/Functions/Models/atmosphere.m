@@ -28,7 +28,7 @@ function [T, a, p, rho, nu] = atmosphere(alt, env)
     
     % Evaluate temperature using ISA and the Temperature Lapse Rate [K/m]
     % Also evaluate the integral dh/T(h) for the pressure.
-    [T, I] = atmosphere_temperature_integral(alt, env);
+    [T, I] = atmosphereTemperatureIntegral(alt, env);
 
     % Evaluate speed of sound
     a = sqrt(gamma * R_star * T);
@@ -61,41 +61,41 @@ end
 % out   T : The temperature at the given altitude
 
 % INFO : If more pressision is needed, you can add atmospheric layer by
-% adding altitude and temperature of the new layer in table_isa_alt and
-% table_isa_tem respectively. Note that the altitude table should remain in
+% adding altitude and temperature of the new layer in tableIsaAltitude and
+% tableIsaTemperature respectively. Note that the altitude table should remain in
 % ascending order.
-function [T, I] = atmosphere_temperature_integral(alt, env)
+function [T, I] = atmosphereTemperatureIntegral(alt, env)
     % Table of the International Atmospheric Model
     % Source : https://en.wikipedia.org/wiki/International_Standard_Atmosphere
-    table_isa_alt = [0,      11000,  20000,  32000,  47000,  51000,  71000,  86000];
-    table_isa_tem = [floor(env.Temperature_Ground), 216.65, ...
+    tableIsaAltitude = [0,      11000,  20000,  32000,  47000,  51000,  71000,  86000];
+    tableIsaTemperature = [floor(env.Temperature_Ground), 216.65, ...
         216.65, 228.65, 270.65, 270.65, 214.15, 186.95];
 
     % Initialize the integral
     I = 0;
 
     % Check if the altitude is in range
-    if alt < table_isa_alt(1) || alt >= table_isa_alt(end)
-        T = table_isa_tem(end);
+    if alt < tableIsaAltitude(1) || alt >= tableIsaAltitude(end)
+        T = tableIsaTemperature(end);
     else
         % Find the interval index and compute the integral at each layer
-        for i = 1:length(table_isa_alt)-1
-            if alt >= table_isa_alt(i) && alt < table_isa_alt(i+1)
+        for i = 1:length(tableIsaAltitude)-1
+            if alt >= tableIsaAltitude(i) && alt < tableIsaAltitude(i+1)
                 index = i;
                 break;
             else
                 % Integrate over all the layer
                 I = I + integral_dh_T(...
-                    table_isa_alt(i), table_isa_alt(i+1), ...
-                    table_isa_tem(i), table_isa_tem(i+1));
+                    tableIsaAltitude(i), tableIsaAltitude(i+1), ...
+                    tableIsaTemperature(i), tableIsaTemperature(i+1));
             end
         end
         %disp(["Altitude : " num2str(alt)])
         % Interpolate the temperature
-        alt1 =  table_isa_alt(index);
-        alt2 =  table_isa_alt(index+1);
-        T1 =    table_isa_tem(index);
-        T2 =    table_isa_tem(index+1);
+        alt1 =  tableIsaAltitude(index);
+        alt2 =  tableIsaAltitude(index+1);
+        T1 =    tableIsaTemperature(index);
+        T2 =    tableIsaTemperature(index+1);
         
         T = T1 + (alt - alt1) * (T2 - T1)/(alt2 - alt1);
 
