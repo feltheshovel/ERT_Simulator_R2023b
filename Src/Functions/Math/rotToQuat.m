@@ -3,6 +3,8 @@ function q = rotToQuat(C)
 % the rotation matrix rotating the earth coordinate system to the rocket
 % coordinate system.
 
+% C is the rotation matrix
+
 q = zeros(4,1);
 T = trace(C);
 qsq = [1+2*C(1,1)-T, 1+2*C(2,2)-T, 1+2*C(3,3)-T, 1+T]/4;
