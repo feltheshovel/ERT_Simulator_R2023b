@@ -120,9 +120,9 @@ classdef rotmatTest < matlab.unittest.TestCase
             % Test 90 degree rotations for all axes
             angle = pi/2;
             expectedResults = {
-                [1, 0, 0; 0, 0, -1; 0, 1, 0],   % X-axis
-                [0, 0, 1; 0, 1, 0; -1, 0, 0],   % Y-axis  
-                [0, -1, 0; 1, 0, 0; 0, 0, 1]    % Z-axis
+                [1, 0, 0; 0, 0, -1; 0, 1, 0], ... X-axis
+                [0, 0, 1; 0, 1, 0; -1, 0, 0], ... Y-axis  
+                [0, -1, 0; 1, 0, 0; 0, 0, 1]  ... Z-axis
             };
             
             for ax = 1:3
@@ -135,9 +135,9 @@ classdef rotmatTest < matlab.unittest.TestCase
             % Test 180 degree rotations for all axes
             angle = pi;
             expectedResults = {
-                [1, 0, 0; 0, -1, 0; 0, 0, -1],  % X-axis
-                [-1, 0, 0; 0, 1, 0; 0, 0, -1],  % Y-axis
-                [-1, 0, 0; 0, -1, 0; 0, 0, 1]   % Z-axis
+                [1, 0, 0; 0, -1, 0; 0, 0, -1], ... X-axis
+                [-1, 0, 0; 0, 1, 0; 0, 0, -1], ... Y-axis
+                [-1, 0, 0; 0, -1, 0; 0, 0, 1]  ... Z-axis
             };
             
             for ax = 1:3
