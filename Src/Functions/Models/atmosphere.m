@@ -5,7 +5,7 @@
 % Each layer has it's own slope and initial temperature. 
 % All the calculation and the physical formulas can be found on the wiki of
 % the ERT :
-% LINK : https://rocket-team.epfl.ch/en/competition/firehorn/flight-dynamics/ertsim/Atmosphere_Model
+% LINK : https://rocket-team.epfl.ch/en/competition/firehorn/flight-dynamics/ertsim/ERT-Sim-2025a/Atmosphere_Model
 
 % in    alt : The altitude at which the coefficients will be evaluate
 % in    env : The environement of the simulation
