@@ -24,9 +24,9 @@ function dragCoefficient = drag(rocket, angleOfAttack, freestreamVelocity, kinem
 % read this file with data used for drag calculation as a persistent
 % variable, since reading it every time step is inefficient
 % (defined in eq 3.3, p 19)
-persistent cpSinArr
-    if isempty(cpSinArr)
-        cpSinArr = readmatrix("data_Cp_conical_nose_sin.csv");
+persistent cpSinArray
+    if isempty(cpSinArray)
+        cpSinArray = readmatrix("data_Cp_conical_nose_sin.csv");
     end
 
 % -------------------------------------------------------------------------
@@ -255,8 +255,8 @@ end
         numPhiAngles = 100;
         phiAngles = linspace(0.5 * pi / numPhiAngles, (numPhiAngles - 0.5) * pi / numPhiAngles, numPhiAngles);
         noseConeAngle = atan(noseBaseRadiusMeters / noseLengthMeters);
-        localConeAngle = asin(cos(angleOfAttack) * sin(noseConeAngle) * ones(1, numPhiAngles) - sin(angleOfAttack) * cos(phiAngles) * cos(noseConeAngle));
-        nosePressureDragCoeff = sum(cpSin(localConeAngle, machNumber, cpSinArray)) * noseLengthMeters / numPhiAngles / noseBaseRadiusMeters / cos(noseConeAngle);
+        semiVertexAngle = asin(cos(angleOfAttack) * sin(noseConeAngle) * ones(1, numPhiAngles) - sin(angleOfAttack) * cos(phiAngles) * cos(noseConeAngle));
+        nosePressureDragCoeff = sum(cpSin(semiVertexAngle, machNumber, cpSinArray)) * noseLengthMeters / numPhiAngles / noseBaseRadiusMeters / cos(noseConeAngle);
         
         % 3.1.2  Friction drag of nose + body (eq 3.4, p 19)
         if reynoldsNumberBody < reynoldsNumberBodyCritical
