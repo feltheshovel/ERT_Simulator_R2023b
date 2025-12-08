@@ -418,7 +418,7 @@ classdef Simulator3D_DragOR < handle
             G = -9.81*M*ZE;
             % Drag
             % Drag coefficient
-            CD = Nose_drag(Rocket, 0, norm(V_rel), nu, a); % (TODO: make air-viscosity adaptable to temperature)
+            CD = noseDrag(Rocket, 0, norm(V_rel), nu, a); % (TODO: make air-viscosity adaptable to temperature)
             % Drag force
             D = -0.5*rho*Rocket.maxCrossSectionArea*CD*V_rel*norm(V_rel); 
 
@@ -544,7 +544,7 @@ classdef Simulator3D_DragOR < handle
 
             % Drag
             % Drag coefficient
-            CD = Nose_drag(obj.Rocket, alpha, Vmag, nu, a)*obj.Rocket.dragCoefficientFactor; 
+            CD = noseDrag(obj.Rocket, alpha, Vmag, nu, a)*obj.Rocket.dragCoefficientFactor; 
             if(t>obj.Rocket.Burn_Time)
               CD = CD + drag_shuriken(obj.Rocket, obj.Rocket.airbrakeAngle, alpha, Vmag, nu); 
             end

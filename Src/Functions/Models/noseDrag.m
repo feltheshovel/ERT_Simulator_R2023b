@@ -1,4 +1,4 @@
-function dragCoefficient = Nose_drag(rocket, angleOfAttack, freeStreamVelocity, kinematicViscosity, speedOfSound)
+function dragCoefficient = noseDrag(rocket, angleOfAttack, freeStreamVelocity, kinematicViscosity, speedOfSound)
 % CALCULATEDRAG - Rocket drag calculation function based on Mandell's book "Topics
 % on advanced model Rocketry" (unless otherwise specified). 
 %
