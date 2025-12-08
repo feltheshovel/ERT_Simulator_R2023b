@@ -1,4 +1,4 @@
-classdef rotmatTest < matlab.unittest.TestCase
+classdef rotMatTest < matlab.unittest.TestCase
 
     % Private property to hold the path that is added temporarily
     properties (Access = private)

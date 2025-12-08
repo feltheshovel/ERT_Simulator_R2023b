@@ -1,4 +1,4 @@
-function rotationMatrix = rotmat(a,ax)
+function rotationMatrix = rotMat(a,ax)
 % rotmat generates the rotation matrix in cartesian coordinates of angle a 
 % around axes ax. 
 
